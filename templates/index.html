@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamscapes</title>
+</head>
+<body>
+    <h1>Welcome to Dreamscapes</h1>
+    <form action="/generate_dream" method="post">
+        <label for="dream_input">Describe your dream:</label><br>
+        <textarea name="dream_input" id="dream_input" rows="5" cols="40"></textarea><br>
+        <input type="submit" value="Generate Dream">
+    </form>
+    <form action="/interpret_dream" method="post">
+        <label for="dream_description">Describe your dream:</label><br>
+        <textarea name="dream_description" id="dream_description" rows="5" cols="40"></textarea><br>
+        <input type="submit" value="Interpret Dream">
+    </form>
+</body>
+</html>
