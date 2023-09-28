@@ -4,18 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dreamscapes</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/static/background.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #cccccc;
+            text-align: center;
+            margin: 0;
+            padding: 50px;
+        }
+
+        h1 {
+            font-size: 48px;
+        }
+
+        label {
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <h1>Welcome to Dreamscapes</h1>
     <form action="/generate_dream" method="post">
         <label for="dream_input">Describe your dream:</label><br>
         <textarea name="dream_input" id="dream_input" rows="5" cols="40"></textarea><br>
-        <input type="submit" value="Generate Dream">
+        <!-- <input type="submit" value="Generate Dream"> -->
+        <input type="submit" value="Generate Dream" style="margin-bottom: 20px;"> <!-- Added margin -->
+        </form>
     </form>
     <form action="/interpret_dream" method="post">
         <label for="dream_description">Describe your dream:</label><br>
         <textarea name="dream_description" id="dream_description" rows="5" cols="40"></textarea><br>
         <input type="submit" value="Interpret Dream">
+    </form>
+    <form action="/analyze_sentiment" method="post">
+        <label for="dream_description">Describe your dream:</label><br>
+        <textarea name="dream_description" id="dream_description" rows="5" cols="40"></textarea><br>
+        <input type="submit" value="Dream Sentiment">
     </form>
 </body>
 </html>
