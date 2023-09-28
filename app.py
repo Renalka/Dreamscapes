@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 from dotenv import load_dotenv
-load_dotenv()
+from transformers import pipeline
 import openai
 import os
+import requests
 
+load_dotenv()
 key = os.getenv("OPENAI_API_KEY")
 
 app = Flask(__name__)
@@ -11,6 +13,8 @@ app = Flask(__name__)
 # Initializing OpenAI API client
 openai.api_key = key
 dreams_database = []
+# Sentiment analysis model from Hugging Face
+nlp = pipeline("sentiment-analysis") # using the default model="distilbert-base-uncased"
 
 
 @app.route('/')
@@ -73,6 +77,34 @@ def interpret_dream():
 
     #return interpretation
     return render_template('dream_interpretation.html', interpretation=interpretation)
+
+@app.route('/analyze_sentiment', methods=['POST'])
+def analyze_sentiment():
+    dream_description = request.form['dream_description']
+    #dream_description = request.json.get('dream_description')
+
+    # Using OpenAI's sentiment analysis model to analyze sentiment
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        #prompt=user_input,
+        prompt=f"Detailed sentiment analysis in one or two sentences of the following text:\n {dream_description}",
+        max_tokens=200,
+        temperature=0.6,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+
+    sentiment = response.choices[0].text.strip()
+
+    #Using HuggingFace's pretrianed model to perform sentiment analysi
+    sentiment_result = nlp(dream_description)[0]
+    sentiment_label = sentiment_result['label']
+    sentiment_score = sentiment_result['score']
+
+    #print(response)
+    #return jsonify({'sentiment': sentiment, 'sentiment_label': sentiment_label, 'sentiment_score': sentiment_result['score']})
+    return render_template('dream_sentiment.html', sentiment_label=sentiment_label, sentiment_score=sentiment_score, sentiment=sentiment)
 
 
 @app.route("/interactive", methods=["POST"])
