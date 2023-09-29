@@ -14,34 +14,31 @@
             color: #ffffff;
             text-align: center;
             margin: 0;
-            padding: 100px;
+            padding: 30px;
         }
 
         h1 {
-            font-size: 48px;
+            font-size: 65px;
+            font-family: 'Brush Script MT', cursive;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-family: 'Oswald';
+            margin-bottom: 100px;
         }
 
         label {
             font-size: 18px;
-            margin-bottom: 10px;
-            display: block;
+            margin-bottom: 2px;
+            /* display: block; */
         }
 
         textarea {
-            width: 100%;
+            width: 80%;
             padding: 10px;
             font-size: 16px;
             border-radius: 5px;
-        }
-
-        input[type="submit"] {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: #ffffff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
         }
 
         input[type="submit"]:hover {
@@ -50,13 +47,32 @@
     </style>
 </head>
 <body>
-    <h1>Welcome to Dreamscapes</h1>
+    <h1>Dreamscapes</h1>
+    <h2>Chronicle Your Inner Worlds</h2>
     <form action="/process_input" method="post">
-        <label for="dream_input">Describe your dream:</label><br>
+        <label for="dream_input" style="background-color: rgba(0, 0, 0, 0.3); padding: 3px;">Describe Your Dream</label><br>
         <textarea name="dream_input" id="dream_input" rows="5" cols="40"></textarea><br>
-        <button type="submit" name="action" value="generate" style="background-color: #007bff; color: #ffffff; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer;">Generate Dream</button>
-        <button type="submit" name="action" value="interpret" style="background-color: #007bff; color: #ffffff; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer;">Interpret Dream</button>
-        <button type="submit" name="action" value="analyze" style="background-color: #007bff; color: #ffffff; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer;">Dream Sentiment</button>
+        <div style="display: flex; justify-content: center; align-items: flex-start;">
+            <div style="text-align: center; margin: 20px;">
+                <button type="submit" name="action" value="generate" style="background-color: #062c54; color: #ffffff; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer;">Visualize Dream</button>
+                <p style="background-color: rgba(0, 0, 0, 0.3); padding: 5px; width: 170px; margin-top: 10px;">Dreams to Stories: Transform Your Visions into Adventures!</p>
+            </div>
+            <div style="text-align: center; margin: 20px;">
+                <button type="submit" name="action" value="interpret" style="background-color: #062c54; color: #ffffff; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer;">Interpret Dream</button>
+                <p style="background-color: rgba(0, 0, 0, 0.3); padding: 5px; width: 170px; margin-top: 10px;">Dream Decode: Unravel Your Mind's Mysteries!</p>
+            </div>
+            <div style="text-align: center; margin: 20px;">
+                <button type="submit" name="action" value="analyze" style="background-color: #062c54; color: #ffffff; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer;">Dream Sentiment</button>
+                <p style="background-color: rgba(0, 0, 0, 0.3); padding: 5px; width: 170px; margin-top: 10px;">Dream Moods Unveiled: Feel the Vibes, Score the Feels!</p>
+            </div>
+        </div>
     </form>
+    <a href="/dream_journal" style="text-decoration: none;">
+        <button style="background-color: #062c54; color: #ffffff; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer;">
+            Dream Journal
+        </button>
+    </a>
 </body>
 </html>
+
+

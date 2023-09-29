@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Dream Interpretation</title>
+    <title>Your Dream's Interpretation</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,40 +16,29 @@
             padding: 100px;
         }
 
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
         h1 {
-            font-size: 48px;
+            font-size: 45px;
+            margin-bottom: 20px;
         }
 
-        label {
+        p {
             font-size: 18px;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        textarea {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-
-        input[type="submit"] {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: #ffffff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #0056b3;
+            margin-bottom: 30px;
         }
     </style>
 </head>
 <body>
-    <h1> Dream</h1>
-    <p>{{ interpretation }}</p>
+    <div class="container">
+        <h1>What Might Your Dream Mean?</h1>
+        <p>{{ interpretation }}</p>
+    </div>
 </body>
 </html>
