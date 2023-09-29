@@ -1,5 +1,6 @@
 Flask==2.0.2
-openai==0.26.1
+openai
+python-docx
 python-dotenv==0.19.1
 requests
 transformers
