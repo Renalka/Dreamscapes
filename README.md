@@ -1,6 +1,5 @@
 # Dreamscapes
 
-Description:
 This is a Flask-based web application that provides dream interpretation and visualization services. The application leverages OpenAI's powerful GPT-4 model to interpret dreams and generate dream descriptions, enhancing the overall experience for users interested in exploring the meaning of their dreams. The users can also maintain a dream journal by using this app.
 
 ### Features:
@@ -28,47 +27,54 @@ Users can maintain a journal of their dreams.
 
 ### Dependencies
 
-This project requires Python 3.8+ and the Python libraries required can be found here:
+This project requires Python 3.8+ and the Python libraries required can be found here:\
 requirements.txt
 
 ### Setup
 
-1. Clone the repository to your local machine.
+1. Clone the repository to your local machine.\
+```bash
 git clone https://github.com/Renalka/Dreamscapes.git
+```
 
-2. Ensure you have the required dependencies installed.
+2. Ensure you have the required dependencies installed.\
+```bash
 pip install -r requirements.txt
+```
 
-3. Obtain an API key from OpenAI. Create a .env file in the root directory and save the key in your environment variables as OPENAI_API_KEY.
+3. Obtain an API key from OpenAI. Create a .env file in the root directory and save the key in your environment variables as OPENAI_API_KEY.\
 
-4. Open a terminal and initialize the Database.
+4. Open a terminal and initialize the Database.\
 
-python
->>> from app import db
->>> db.create_all()
->>> exit()
+```bash
+from app import db
+db.create_all()
+exit()
+```
 
-5. Run the Flask application:
+5. Run the Flask application:\
+```bash
 python app.py
+```
 
 6. Visit http://localhost:5000 in your web browser.
 
 ### Database
-The application uses SQLite as the database to store dream entries. The database schema contains the following fields:
+The application uses SQLite as the database to store dream entries. The database schema contains the following fields:\
 
-id: Integer, primary key
-content: Text, the dream content
-date: DateTime, the date and time the dream was recorded
+id: Integer, primary key\
+content: Text, the dream content\
+date: DateTime, the date and time the dream was recorded\
 
 ### Disclaimer
 This app is not a substitute for professional advice, diagnosis, or treatment provided by a qualified psychologist or mental health professional. Always seek the advice of your mental health provider with any questions you may have regarding a medical condition. 
 
 
 ### Future Improvements
-Implementing user authentication for secure dream journaling.
-Allowing users to delete or edit their journal entries.
+Implementing user authentication for secure dream journaling.\
+Allowing users to delete or edit their journal entries.\
 Enhancing the UI/UX for a more interactive experience.
 
 ### Acknowledgments
-OpenAI for providing the powerful GPT-4 model.
-Hugging Face for the sentiment analysis NLP model.
+OpenAI for providing the powerful GPT-4 model.\
+Hugging Face for the sentiment analysis NLP model.\
