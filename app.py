@@ -21,90 +21,86 @@ nlp = pipeline("sentiment-analysis") # using the default model="distilbert-base-
 def index():
     return render_template('index.html')
 
-@app.route('/generate_dream', methods=['POST'])
-def generate_dream():
-    #user_input = request.json.get('user_input')
+@app.route('/process_input', methods=['POST'])
+def process_input():
+    action = request.form['action']
     dream_input = request.form['dream_input']
+    
+    if action == 'generate':
+        # Generating dream description using OpenAI's GPT-4
+        response = openai.ChatCompletion.create(
+        model="gpt-4",
+        temperature=0,
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a highly skilled AI trained in language comprehension. I would like you to read the given text, expand upon it and turn it into a storyline of one paragraph."
+            },
+            {
+                "role": "user",
+                "content": dream_input
+            }
+        ])
+        dream_description= response['choices'][0]['message']['content']
 
-    # Generating dream description using OpenAI
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        #prompt=user_input,
-        prompt=dream_input,
-        max_tokens=200,
-        temperature=0.6,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
-    )
-    dream_description = response.choices[0].text.strip()
+        # Generating image
+        generated_image_url = generate_image(dream_description)
+        # Saving dream to the list
+        dreams_database.append({'dream_description': dream_description, 'image_url': generated_image_url})
 
-    # Generating image
-    generated_image_url = generate_image(dream_description)
+        return render_template('dream.html', dream=dream_description, image_url=generated_image_url)
 
-    # Saving dream to the list
-    dreams_database.append({'dream_description': dream_description, 'image_url': generated_image_url})
+    elif action == 'interpret':
+        # Interpreting dream using OpenAI's GPT-4
+        response = openai.ChatCompletion.create(
+        model="gpt-4",
+        temperature=0,
+        messages=[
+            {
+                "role": "system",
+                "content": "Act as a psychologist would and interpret this dream. Make sure to talk about the current state of mind the person seems to be in."
+            },
+            {
+                "role": "user",
+                "content": dream_input
+            }
+        ])
+        interpretation= response['choices'][0]['message']['content']
 
-    #return jsonify({'dream_description': dream_description, 'image_url': generated_image_url})
-    return render_template('dream.html', dream=dream_description, image_url=generated_image_url)
+        return render_template('dream_interpretation.html', interpretation=interpretation)
+        
+    elif action == 'analyze':
+        response = openai.ChatCompletion.create(
+        model="gpt-4",
+        temperature=0,
+        messages=[
+            {
+                "role": "system",
+                "content": "Perform detailed sentiment analysis in a few sentences of the given text."
+            },
+            {
+                "role": "user",
+                "content": dream_input
+            }
+        ])
+        
+        sentiment= response['choices'][0]['message']['content']
+        # Using HuggingFace's pretrianed model to perform sentiment analysis
+        sentiment_result = nlp(dream_input)[0]
+        sentiment_label = sentiment_result['label']
+        sentiment_score = sentiment_result['score']
+
+        #print(response)
+        #return jsonify({'sentiment': sentiment, 'sentiment_label': sentiment_label, 'sentiment_score': sentiment_result['score']})
+        return render_template('dream_sentiment.html', sentiment_label=sentiment_label, sentiment_score=sentiment_score, sentiment=sentiment)
+
 
 def generate_image(dream_description):
     # Using OpenAI's API to generate an image based on the dream description
-
     response = openai.Image.create(prompt=dream_description, n=1, size="1024x1024")
     image_url = response['data'][0]['url']
 
     return image_url
-
-
-@app.route('/interpret_dream', methods=['POST'])
-def interpret_dream():
-    #dream_description = request.json.get('dream_description')
-    dream_description = request.form['dream_description']
-
-    # Generating dream description using OpenAI
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        #prompt=user_input,
-        prompt=f"Act as a psychologist would and interpret this dream. Make sure to talk about the current state of mind the person seems to be in. Dream: {dream_description}",
-        max_tokens=200,
-        temperature=0.6,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
-    )
-    interpretation = response.choices[0].text.strip()
-
-    #return interpretation
-    return render_template('dream_interpretation.html', interpretation=interpretation)
-
-@app.route('/analyze_sentiment', methods=['POST'])
-def analyze_sentiment():
-    dream_description = request.form['dream_description']
-    #dream_description = request.json.get('dream_description')
-
-    # Using OpenAI's sentiment analysis model to analyze sentiment
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        #prompt=user_input,
-        prompt=f"Detailed sentiment analysis in one or two sentences of the following text:\n {dream_description}",
-        max_tokens=200,
-        temperature=0.6,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
-    )
-
-    sentiment = response.choices[0].text.strip()
-
-    #Using HuggingFace's pretrianed model to perform sentiment analysi
-    sentiment_result = nlp(dream_description)[0]
-    sentiment_label = sentiment_result['label']
-    sentiment_score = sentiment_result['score']
-
-    #print(response)
-    #return jsonify({'sentiment': sentiment, 'sentiment_label': sentiment_label, 'sentiment_score': sentiment_result['score']})
-    return render_template('dream_sentiment.html', sentiment_label=sentiment_label, sentiment_score=sentiment_score, sentiment=sentiment)
 
 
 @app.route("/interactive", methods=["POST"])
