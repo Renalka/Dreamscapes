@@ -11,10 +11,10 @@
             background-image: url('/static/background.jpg');
             background-size: cover;
             background-position: center;
-            color: #cccccc;
+            color: #ffffff;
             text-align: center;
             margin: 0;
-            padding: 50px;
+            padding: 100px;
         }
 
         h1 {
@@ -51,22 +51,12 @@
 </head>
 <body>
     <h1>Welcome to Dreamscapes</h1>
-    <form action="/generate_dream" method="post">
+    <form action="/process_input" method="post">
         <label for="dream_input">Describe your dream:</label><br>
         <textarea name="dream_input" id="dream_input" rows="5" cols="40"></textarea><br>
-        <!-- <input type="submit" value="Generate Dream"> -->
-        <input type="submit" value="Generate Dream" style="margin-bottom: 20px;"> <!-- Added margin -->
-        </form>
-    </form>
-    <form action="/interpret_dream" method="post">
-        <label for="dream_description">Describe your dream:</label><br>
-        <textarea name="dream_description" id="dream_description" rows="5" cols="40"></textarea><br>
-        <input type="submit" value="Interpret Dream">
-    </form>
-    <form action="/analyze_sentiment" method="post">
-        <label for="dream_description">Describe your dream:</label><br>
-        <textarea name="dream_description" id="dream_description" rows="5" cols="40"></textarea><br>
-        <input type="submit" value="Dream Sentiment">
+        <button type="submit" name="action" value="generate" style="background-color: #007bff; color: #ffffff; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer;">Generate Dream</button>
+        <button type="submit" name="action" value="interpret" style="background-color: #007bff; color: #ffffff; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer;">Interpret Dream</button>
+        <button type="submit" name="action" value="analyze" style="background-color: #007bff; color: #ffffff; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer;">Dream Sentiment</button>
     </form>
 </body>
 </html>
