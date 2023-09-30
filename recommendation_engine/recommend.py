@@ -1,9 +1,9 @@
-from transformers import BertTokenizer, BertModel
 import torch
 import csv
 import numpy as np
 import os
 import pandas as pd
+from transformers import BertTokenizer, BertModel
 from sklearn.metrics.pairwise import cosine_similarity
 
 file_path = os.path.join(os.path.dirname(__file__), 'data/booksummaries.txt')
@@ -21,7 +21,6 @@ def recommend_books(user_input):
         for row in reader:
             data.append(row)
     df = pd.DataFrame.from_records(data, columns=['book_id', 'freebase_id', 'book_title', 'author', 'publication_date', 'genre', 'summary'])
-    #df = df_full.head(300)
 
     book_embeddings = np.load(file_path2)
 
@@ -29,10 +28,6 @@ def recommend_books(user_input):
     input_tokens = tokenizer(user_input, return_tensors="pt")
     with torch.no_grad():
         input_embeddings = model(**input_tokens).last_hidden_state.mean(dim=1)
-
-    # Reshaping for compatibility with cosine_similarity
-    # if len(input_embeddings.shape) == 3:
-    #     input_embeddings = input_embeddings.squeeze(0)
 
     # Using cosine similarity and getting indices of the top 3 most similar book descriptions
     similarities = cosine_similarity(input_embeddings, book_embeddings)

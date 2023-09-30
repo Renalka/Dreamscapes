@@ -4,7 +4,6 @@ from flask import Flask, request, jsonify, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from recommendation_engine.recommend import recommend_books
 from transformers import pipeline
-import requests
 import openai
 import os
 
@@ -17,7 +16,7 @@ app = Flask(__name__)
 openai.api_key = key
 
 # Sentiment analysis model from Hugging Face
-nlp = pipeline("sentiment-analysis") # using the default model="distilbert-base-uncased"
+nlp = pipeline("sentiment-analysis") # Using the default model="distilbert-base-uncased"
 
 # Setting up database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///dreamscape_test.db' 
@@ -41,12 +40,10 @@ def process_input():
         action = request.form['action']
         dream_input = request.form['dream_input']
         if dream_input!="":
-            #print(dream_input)
             # Saving dream to the database
             new_dream = Dream(content=dream_input)
             db.session.add(new_dream)
             db.session.commit()
-            #print(new_dream)
             
             if action == 'generate':
                 # Generating dream description using OpenAI's GPT-4
@@ -65,7 +62,7 @@ def process_input():
                 ])
                 dream_description= response['choices'][0]['message']['content']
 
-                # Generating image
+                # Generating image using OpenAI's DALL-E
                 generated_image_url = generate_image(dream_input)
                 
                 return render_template('dream.html', dream=dream_description, image_url=generated_image_url)
@@ -105,19 +102,17 @@ def process_input():
                 ])
                 
                 sentiment= response['choices'][0]['message']['content']
+                
                 # Using HuggingFace's pretrianed model to perform sentiment analysis
                 sentiment_result = nlp(dream_input)[0]
                 sentiment_label = sentiment_result['label']
                 sentiment_score = sentiment_result['score']
 
-                #print(response)
-                #return jsonify({'sentiment': sentiment, 'sentiment_label': sentiment_label, 'sentiment_score': sentiment_result['score']})
                 return render_template('dream_sentiment.html', sentiment_label=sentiment_label, sentiment_score=sentiment_score, sentiment=sentiment)
             
             elif action == 'recommend':
                 # Recommending books based on dream of the user
                 books = recommend_books(dream_input)
-                # print(recommended_books)
                 recommended_books = [f"{title} by {author}" for title, author in books]
                 return render_template('recommended_books.html', recommended_books=recommended_books)
         else:
@@ -145,7 +140,6 @@ def dream_journal():
         dreams = Dream.query.all()
     
     return render_template('dream_journal.html', dreams=dreams)
-
 
 
 if __name__ == '__main__':
