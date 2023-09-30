@@ -23,7 +23,7 @@ Users can request the app to interpret their dreams in a manner similar to a psy
 The app performs sentiment analysis on the input text using Hugging Face's pretrained BERT model. It provides information on the sentiment's label (positive, negative, or neutral) and a corresponding confidence score.
 
 #### 5. Dream Journal
-Users can maintain a journal of their dreams. 
+Users can maintain a journal of their dreams. They can search for a specific dream entry in their journal.
 
 #### 6. Recommendation Engine
 This app utilizes pre-trained Bidirectional Encoder Representations from Transformers (BERT) models to generate book recommendations based on user's dream.\
