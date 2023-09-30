@@ -93,9 +93,12 @@ Publication Date: The date when the book was published.\
 Genre: The genre or category to which the book belongs, providing insights into its thematic content.\
 Summary: A concise textual description or summary of the book's content. These summaries are typically short paragraphs that capture the essence of the story or subject matter.
 
+### Screenshots
+
+![Homepage](https://github.com/Renalka/Dreamscapes/blob/main/screenshots/homepage.png)
+
 ### Disclaimer
 This app is not a substitute for professional advice, diagnosis, or treatment provided by a qualified psychologist or mental health professional. Always seek the advice of your mental health provider with any questions you may have regarding a medical condition. 
-
 
 ### Future Improvements
 Implementing user authentication for secure dream journaling.\
