@@ -1,6 +1,6 @@
 # Dreamscapes
 
-This is a Flask-based web application that provides dream interpretation and visualization services. The application leverages OpenAI's powerful GPT-4 model to interpret dreams and generate dream descriptions, enhancing the overall experience for users interested in exploring the meaning of their dreams. The users can also maintain a dream journal by using this app.
+This is a Flask-based web application that provides interpretation and visualization of a user's dream. The application leverages OpenAI's powerful GPT-4 model to interpret dreams and generate dream descriptions, enhancing the overall experience for users interested in exploring the meaning of their dreams. The users can also maintain a dream journal by using this app.
 
 ### Features:
 
@@ -10,24 +10,24 @@ Users can describe their dream in natural language, providing details like setti
 
 #### 1. Dream Composer:
 
-The app processes the input and generates a vivid and detailed description of the dream. It adds imaginative elements, subtle nuances, and emotional context to enhance the dream narrative.
+The app processes the input and generates a vivid and detailed description of the dream. It adds imaginative elements, subtle nuances, and emotional context to enhance the dream narrative. Uses GPT-4.
 
 #### 2. Visual Dream Rendering:
 
-The app creates a visual representation of the dream. The generated image reflects the dreamer's description, incorporating multiple elements.
+The app creates a visual representation of the dream. The generated image reflects the dreamer's description, incorporating multiple elements. Uses DALL·E (GPT-3).
 
 #### 3. Dream Interpretation
-Users can request the app to interpret their dreams in a manner similar to a psychologist. The interpretation includes insights into the user's current state of mind.
+Users can request the app to interpret their dreams in a manner similar to a psychologist. The interpretation includes insights into the user's current state of mind. Uses GPT-4.
 
 #### 4. Sentiment Analysis
-The app performs sentiment analysis on the input text using Hugging Face's pretrained model. It provides information on the sentiment's label (positive, negative, or neutral) and a corresponding confidence score.
+The app performs sentiment analysis on the input text using Hugging Face's pretrained BERT model. It provides information on the sentiment's label (positive, negative, or neutral) and a corresponding confidence score.
 
 #### 5. Dream Journal
 Users can maintain a journal of their dreams. 
 
 #### 6. Recommendation Engine
-This app utilizes pre-trained BERT models to generate book recommendations based on user's dream.\
-We are utilizing the CMU Books Dataset that contains the details of the books like book title, author. ISBN and summary. After performing the initial processing of the dataset, we generate embeddings for each book summary. The computed embeddings are saved. Using pre-trained BERT model and cosine similarity, we find the three most similar book descriptions to the user's dream.
+This app utilizes pre-trained Bidirectional Encoder Representations from Transformers (BERT) models to generate book recommendations based on user's dream.\
+We are utilizing the CMU Books Dataset. After performing the initial processing of the dataset, we generate embeddings for each book summary and the user's dream using pre-trained BERT model. We find the three most similar book descriptions to the user's dream using Cosine similarity.
 
 ### Dependencies
 
@@ -55,9 +55,17 @@ from app import db
 db.create_all()
 exit()
 ```
-Check  if the database was created successfully.
+  Check  if the database was created successfully.
 ```bash
 sqlite3 dreamscape_test.db
+```
+  Create a table inside the database.
+```sqlite3
+CREATE TABLE dream (
+    id INTEGER PRIMARY KEY,
+    content TEXT,
+    date DATETIME
+);
 ```
 
 5. Run the Flask application:
@@ -74,7 +82,7 @@ id: Integer, primary key\
 content: Text, the dream content\
 date: DateTime, the date and time the dream was recorded
 
-### Dataset
+### Dataset for Recommendation System
 The CMU Books Dataset is a comprehensive collection of book-related information curated by Carnegie Mellon University. Here are the key attributes included in the CMU Books Dataset:
 
 Book ID: A unique identifier assigned to each book in the dataset.\
