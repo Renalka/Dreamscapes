@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Dream Books</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/static/journal.jpg');
+            background-size: cover;
+            background-position: center;
+            /* background-color: #f7f7f7; */
+            margin: 0;
+            padding: 100px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 45px;
+            color: #000000;
+            background-color: #fff;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        li:hover {
+            background-color: #f2f2f2;
+        }
+
+        li:before {
+            content: "\1F4DD";
+            font-size: 24px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Dream Library</h1>
+    <ul>
+        {% for book in recommended_books %}
+            <li>{{ book }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
