@@ -115,8 +115,9 @@ def process_input():
         
         elif action == 'recommend':
             # Recommending books based on dream of the user
-            recommended_books = recommend_books(dream_input)
+            books = recommend_books(dream_input)
             # print(recommended_books)
+            recommended_books = [f"{title} by {author}" for title, author in books]
             return render_template('recommended_books.html', recommended_books=recommended_books)
             
     except Exception as e:
@@ -143,32 +144,6 @@ def dream_journal():
     return render_template('dream_journal.html', dreams=dreams)
 
 
-@app.route("/interactive", methods=["POST"])
-def interactive():
-    input_text = request.json.get('input_text')
-
-    #print(f"Input Text: {input_text}")
-
-    # Generating the AI response
-    response = openai.Completion.create(
-        engine="davinci",
-        prompt=input_text,
-        max_tokens=1000,
-        temperature=0.7,
-        stop=["\n", "\t"],
-    )
-
-    #print(f"OpenAI Response: {response}")
-
-    if "choices" in response and response["choices"]:
-        # Extracting and cleaning the generated text
-        generated_text = response["choices"][0]["text"].strip()
-    else:
-        generated_text = "No valid response from OpenAI"
-
-    #print(f"Generated Text: {generated_text}")
-
-    return jsonify({"response": generated_text})
 
 if __name__ == '__main__':
     app.run(debug=True)

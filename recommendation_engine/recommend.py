@@ -38,6 +38,7 @@ def recommend_books(user_input):
     similarities = cosine_similarity(input_embeddings, book_embeddings)
     top_3_indices = similarities[0].argsort()[-3:][::-1]
 
-    recommended_books = df.iloc[top_3_indices]['book_title'].tolist()
+    #recommended_books = df.iloc[top_3_indices]['book_title'].tolist()
+    recommended_books = df.iloc[top_3_indices][['book_title', 'author']].values.tolist()
 
     return recommended_books

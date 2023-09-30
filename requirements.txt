@@ -1,15 +1,12 @@
-csv
 Flask==2.0.2
 Flask-SQLAlchemy
-matplotlib
+numpy
 openai
 pandas
-pickle
-plotly
 python-docx
 python-dotenv==0.19.1
 requests
 sklearn
 SQLAlchemy==1.4
-transformers
 torch
+transformers
