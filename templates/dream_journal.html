@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -49,6 +49,72 @@
 </head>
 <body>
     <h1>Your Dream Journal</h1>
+    <ul>
+        {% for dream in dreams %}
+            <li>{{ dream.date }} - {{ dream.content }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Dream Journal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/static/journal.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 100px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 45px;
+            color: #000000;
+            background-color: #fff;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        li:hover {
+            background-color: #f2f2f2;
+        }
+
+        li:before {
+            content: "\1F4DD";
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .search-form {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Dream Journal</h1>
+
+    <form action="/dream_journal" method="post" class="search-form" style="text-align: center; margin: 20px;">
+        <input type="text" name="search_term" placeholder="Search by content" style="border-radius: 5px; padding: 10px 20px; font-size: 16px;">
+        <input type="submit" value="Search" style="background-color: #062c54; color: #ffffff; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer;">
+    </form>    
     <ul>
         {% for dream in dreams %}
             <li>{{ dream.date }} - {{ dream.content }}</li>
