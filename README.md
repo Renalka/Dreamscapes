@@ -25,6 +25,10 @@ The app performs sentiment analysis on the input text using Hugging Face's pretr
 #### 5. Dream Journal
 Users can maintain a journal of their dreams. 
 
+#### 6. Recommendation Engine
+This app utilizes pre-trained BERT models to generate book recommendations based on user's dream.\
+We are utilizing the CMU Books Dataset that contains the details of the books like book title, author. ISBN and summary. After performing the initial processing of the dataset, we generate embeddings for each book summary. The computed embeddings are saved. Using pre-trained BERT model and cosine similarity, we find the three most similar book descriptions to the user's dream.
+
 ### Dependencies
 
 This project requires Python 3.8+ and the Python libraries required can be found here:\
@@ -51,6 +55,10 @@ from app import db
 db.create_all()
 exit()
 ```
+Check  if the database was created successfully.
+```bash
+sqlite3 dreamscape_test.db
+```
 
 5. Run the Flask application:
 ```bash
@@ -66,6 +74,17 @@ id: Integer, primary key\
 content: Text, the dream content\
 date: DateTime, the date and time the dream was recorded
 
+### Dataset
+The CMU Books Dataset is a comprehensive collection of book-related information curated by Carnegie Mellon University. Here are the key attributes included in the CMU Books Dataset:
+
+Book ID: A unique identifier assigned to each book in the dataset.\
+Freebase ID: A reference identifier associated with books in the Freebase knowledge graph.\
+Book Title: The title of the book, which serves as a primary identifier for individual works.\
+Author: The name of the author(s) responsible for writing the book.\
+Publication Date: The date when the book was published.\
+Genre: The genre or category to which the book belongs, providing insights into its thematic content.\
+Summary: A concise textual description or summary of the book's content. These summaries are typically short paragraphs that capture the essence of the story or subject matter.
+
 ### Disclaimer
 This app is not a substitute for professional advice, diagnosis, or treatment provided by a qualified psychologist or mental health professional. Always seek the advice of your mental health provider with any questions you may have regarding a medical condition. 
 
@@ -77,4 +96,5 @@ Enhancing the UI/UX for a more interactive experience.
 
 ### Acknowledgments
 OpenAI for providing the powerful GPT-4 model.\
-Hugging Face for the sentiment analysis NLP model.
+Hugging Face for the sentiment analysis NLP model.\
+Carnegie Mellon University for curating and providing the CMU Books Dataset.
